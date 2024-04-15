@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="root"></div>
+</body>
+<script crossorigin src = "https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>    
+<script crossorigin src ="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script  type="text/babel;">
+    const root =document.getElementById("root");
+    const Title =  () => (
+        <h3 id= "title" onMouseEnter= {() => console.log("mouse enter")}>
+            Hello I'm a span
+            </h3>
+    );
+    
+    const Button = () => ( 
+        <btn onClick ={ () => console.log("I'm clicked")}>Click me</btn>
+    ); //arrow function으로 함수 만들어주기
+    const btn = React.createElement(
+        "button",
+        {
+            onClick : () => console.log("I'm clicked"),
+        },
+        "Click me"
+    );
+    const Container = () => (
+        <div>
+            <Title />
+            <Button /> //arrow function으로 만들어준 함수 Button(개인이 만든 함수는 무조건 대문자로 시작!) 호출
+        </div>
+        );
+    ReactDOM.render(<Container />, root);
+</script>
+</html> 
