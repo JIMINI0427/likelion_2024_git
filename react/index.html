@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="root"></div>
+</body>
+<script crossorigin src = "https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>    
+<script crossorigin src ="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script  type="text/babel;">
+    const root =document.getElementById("root");
+    function App() { 
+        cosnt [amount, setAmount] = React.useState(0);
+        const [flipped, setFlipped] = React.useState(false);
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        };
+        const reset = () => setAmount(0);
+        const onFlip = () =>{
+            reset();
+            setFlipped((current) => !current);};
+        return(
+         <div>
+            <h1>Super Converter</h1>
+            <div>
+                <label htmlFor="minutes">Minutes</label> //label은 그냥 input 입력란에 작게 써진 라벨
+                <input
+                    value={flipped ? amount * 60 : amount} //flipped 면 amount*60 아니면 그냥 amount
+                    id="minutes"
+                    placeholder="Minutes"
+                    type="number"
+                    onChange={onChange}
+                    disabled={flipped === true}//혹은 {flipped}
+                />
+            </div>
+            <div>
+                <label htmlFor="hours">Hours</label> //그냥 for은 java 문법이니까 꼭 htmlFor로 쓰도록 한다
+                <input
+                    value = {flipped ? amount: Math.round(minutes/60) } 
+                    id="hours"
+                    placeholder="Hours"
+                    type="number"
+                    onChange={onChange}
+                    disabled={flipped === false}// 혹은 {!flipped}
+                />
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onFlip}>{flipped ? "Turn back" :"flipped "}</button>
+         </div> 
+        );
+    }
+    ReactDOM.render(<App />, root);
+</script>
+</html>
