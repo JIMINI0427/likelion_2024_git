@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="root"></div>
+</body>
+<script crossorigin src = "https://unpkg.com/react@17.0.2/umd/react.development.js"></script>    
+<script crossorigin src ="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script  type="text/babel;">
+    const root =document.getElementById("root");
+    function Btn({text, onClick, fontSize=12}) {
+        return (
+            <button
+                onClick= {onClick}
+                style={{
+                    backgroundColor: "tomato",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: 0, 
+                    borderRadius: 10,
+                    fontSize,
+             
+                }}
+            >
+                {text}
+            </button>       
+        );
+    }
+
+    const MemorizedBtn = React.memo(Btn); 
+    MemorizedBtn.propTypes = {
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number,
+    };
+    function App() { 
+        const [value, setValue] = React.useState("Save changes");
+        const changeValue = () => setValue("Revert Changes");
+        return (
+        <div>
+            <MemorizedBtn text={value} onClick={changeValue} fontSize={40
+            } />  //fontSize를 지정해주었기 때문에 지정한 값으로
+            <MemorizedBtn text="Continue" /> fontSize를 지정하지 않았기 때문에 default값으로
+        </div>
+        );
+    }
+    ReactDOM.render(<App />, root);
+</script>
+</html>
